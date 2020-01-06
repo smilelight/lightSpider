@@ -1,2 +1,2 @@
 # lightSpider
-Lightsmile's personal spider for crawling data
+lightsmile's personal spider for crawling data
