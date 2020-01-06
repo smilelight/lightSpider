@@ -44,8 +44,6 @@ from lightspider.worker import light
 # 编写页面解析函数
 @light
 def handler(html):
-    """
-    """
     html = etree.HTML(html)
     info = html.xpath('//div[@class="col-md-8"]')[0]
     words = [re.sub(r'\(\d+\)', '', item.xpath('string(.)')) for item in info.xpath('./b')[:-1]]
@@ -81,7 +79,7 @@ if __name__ == '__main__':
     spider.run(tasks, handler)
 ```
 
-## 完整示例
+## [完整示例](https://github.com/smilelight/lightSpider/blob/master/examples/jyc.py)
 
 ```python
 from lightspider.spider import Spider
@@ -93,8 +91,6 @@ import re
 # 编写页面解析函数
 @light
 def handler(html):
-    """
-    """
     html = etree.HTML(html)
     info = html.xpath('//div[@class="col-md-8"]')[0]
     words = [re.sub(r'\(\d+\)', '', item.xpath('string(.)')) for item in info.xpath('./b')[:-1]]
@@ -124,8 +120,8 @@ if __name__ == '__main__':
 ![Demo](res/lightSpider-demo.jpg)
 
 断点重爬效果如图：
-![断点重爬1](res/lightSpider断点重爬1.jpg)
-![断点重爬2](res/lightSpider断点重爬2.jpg)
+![断点重爬1](res/lightSpider-recrawl-1.jpg)
+![断点重爬2](res/lightSpider-recrawl-2.jpg)
 
 ## 参考
 1. [Python3WebSpider/ProxyPool: Proxy Pool](https://github.com/Python3WebSpider/ProxyPool)
