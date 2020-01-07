@@ -71,7 +71,7 @@ base_url = 'https://www.cilin.org/jyc/b_{}.html'
 spider = Spider(base_url=base_url, style='json', save_path=r'D:\Data\NLP\corpus\test')
 ```
 
-### step5: 执行`Spider`对象的`run`方法
+### step6: 执行`Spider`对象的`run`方法
 
 如：
 ```python
