@@ -1,5 +1,5 @@
-from lightspider.spider import Spider
-from lightspider.worker import light
+from lightspider import Spider
+from lightspider import light
 
 from lxml import etree
 import re
@@ -29,6 +29,8 @@ def handler(html):
 #     tasks.append(i)
 #
 # spider = Spider(base_url=base_url, style='json', save_path=r'D:\Data\NLP\corpus\jyc')
+
+
 tasks = []
 base_url = 'https://www.cilin.org/jyc/b_{}.html'
 for i in range(1, 30):

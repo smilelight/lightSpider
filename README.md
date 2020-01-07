@@ -34,8 +34,8 @@ pip install -i https://pypi.douban.com/simple/ lightSpider
 ### step2: 引入必要依赖库
 
 ```python
-from lightspider.spider import Spider
-from lightspider.worker import light
+from lightspider import Spider
+from lightspider import light
 ```
 ### step3：编写页面解析函数
 
@@ -78,12 +78,13 @@ spider = Spider(base_url=base_url, style='json', save_path=r'D:\Data\NLP\corpus\
 if __name__ == '__main__':
     spider.run(tasks, handler)
 ```
+**注意**：`if-main`句式不能省略！
 
 ## [完整示例](https://github.com/smilelight/lightSpider/blob/master/examples/jyc.py)
 
 ```python
-from lightspider.spider import Spider
-from lightspider.worker import light
+from lightspider import Spider
+from lightspider import light
 
 from lxml import etree
 import re

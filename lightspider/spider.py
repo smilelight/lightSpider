@@ -1,4 +1,5 @@
-import os, time
+import os
+import time
 import multiprocessing
 from multiprocessing import Process, Queue
 
