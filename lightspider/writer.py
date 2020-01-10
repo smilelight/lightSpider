@@ -26,9 +26,9 @@ def csv_writer(result_q, task_nums, save_path):
     bar = tqdm(total=task_nums)
     while True:
         result, task = result_q.get(True)
-        if result == 'end':
+        if result == '-end-':
             break
-        with open(save_path + '/result.csv', 'a+', encoding='utf-8') as f:
+        with open(save_path + '/result.csv', 'a+', encoding='utf-8', newline='') as f:
             f_csv = csv.writer(f)
             f_csv.writerow(result)
         with open(save_path + '/handle.txt', 'a+', encoding='utf-8') as f:

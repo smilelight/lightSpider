@@ -1,29 +1,31 @@
 import os
 import time
 import multiprocessing
-from multiprocessing import Process, Queue
+from multiprocessing import Process, Queue, Manager
 
 from lightspider.utils.log import logger
 from lightspider.writer import json_writer, csv_writer
 
 
 class Spider:
-    def __init__(self, base_url, style, save_path):
+    def __init__(self, base_url, format, save_path, use_proxy=False):
         self.base_url = base_url
-        if style == 'json':
+        if format == 'json':
             writer = json_writer
-        elif style == 'csv':
+        elif format == 'csv':
             writer = csv_writer
         else:
-            raise Exception('the writer style must be json or csv!')
-        self.style = style
+            raise Exception('the writer format must be json or csv!')
+        self.format = format
         self.writer = writer
         if not os.path.isdir(save_path):
             logger.warning('指定目录不存在！将创建存储目录{}'.format(save_path))
             os.mkdir(save_path)
         self.save_path = save_path
+        self.use_proxy = use_proxy
+        self._parser = None
 
-    def run(self, tasks, handler):
+    def run(self, tasks, parser):
         if type(tasks[0]) == int:
             tasks = [str(task) for task in tasks]
         if not os.path.isfile(self.save_path + '/task.txt'):
@@ -44,6 +46,8 @@ class Spider:
             task_q.put(task)
         task_q.put('-end-')
 
+        handled_tasks_list = Manager().list()
+
         result_q = Queue()
         result_process = Process(target=self.writer, args=(result_q, len(unhandled_tasks), self.save_path))
         result_process.start()
@@ -53,7 +57,7 @@ class Spider:
 
         process_lst = []
         for i in range(multiprocessing.cpu_count()):
-            p = Process(target=handler, args=(self.base_url, task_q, result_q))
+            p = Process(target=parser, args=(self.base_url, task_q, result_q, handled_tasks_list, self.use_proxy))
             process_lst.append(p)
 
         for p in process_lst:
@@ -68,4 +72,4 @@ class Spider:
         logger.info('执行结束, 当前时间为：{}'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())))
         b = time.time()
         logger.info('本次共计耗时{}s，共爬取数据条数为{}，平均速度为：{}(task/s)'.format(round(b - a, 2), len(unhandled_tasks),
-                                                                 round(len(unhandled_tasks) / (b - a), 2)))
+                                                                   round(len(unhandled_tasks) / (b - a), 2)))
