@@ -1,6 +1,7 @@
 import requests
 
 PROXY_POOL_URL = 'http://localhost:5555/random'
+DEFAULT_PROXY = 'default_proxy'
 
 
 def get_proxy():

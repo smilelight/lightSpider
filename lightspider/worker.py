@@ -5,7 +5,7 @@ from .downloader import get_response
 
 def light(parser):
     @wraps(parser)
-    def worker(base_url, task_q, result_q, handled_tasks_list, use_proxy=True):
+    def worker(base_url, task_q, result_q, handled_tasks_list, proxy=None):
         while True:
             task = task_q.get(True)
             if task == '-end-':
@@ -14,7 +14,7 @@ def light(parser):
             if task in handled_tasks_list:
                 continue
             try:
-                response = get_response(base_url.format(task), use_proxy)
+                response = get_response(base_url.format(task), proxy)
                 if response:
                     info, tasks = parser(response)
                 else:

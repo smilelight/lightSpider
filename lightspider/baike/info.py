@@ -31,11 +31,11 @@ def _parse(response):
     html = etree.HTML(response.text)
     result = {}
     if html.xpath('//div[@class="sorryBox"]'):  # 没有直接对应条目，还需进一步操作
-        result['tag'] = 'none'
+        result['type'] = 'none'
     else:
         result['info'] = {}
         if html.xpath('//div[@class="polysemant-list polysemant-list-normal"]'):  # 为多义词，且展示为最常用义项
-            result['tag'] = 'multiple'
+            result['type'] = 'multiple'
 
             # 获取基本信息
             title = html.xpath('string(//dd[@class="lemmaWgt-lemmaTitle-title"]/h1)')
@@ -69,8 +69,15 @@ def _parse(response):
                         clean_word(pro.xpath('string(.//following-sibling::*[1])'))
                 result['info']['attrs'] = attrs
 
+            # 获取开放标签
+            tags = []
+            if html.xpath('//div[@class="open-tag-title"]'):
+                for tag in html.xpath('//span[@class="taglist"]'):
+                    tags.append(tag.xpath('string(.)').strip())
+            result['info']['tags'] = tags
+
         elif html.xpath('//ul[@class="custom_dot  para-list list-paddingleft-1"]'):  # 为多义词，但展示为消岐页
-            result['tag'] = 'ambiguous'
+            result['type'] = 'ambiguous'
             title = html.xpath('string(//dd[@class="lemmaWgt-lemmaTitle-title"]/h1)')
             result['info']['word'] = title
             means = []
@@ -79,7 +86,7 @@ def _parse(response):
             result['info']['means'] = means
 
         else:  # 为单义词
-            result['tag'] = 'signal'
+            result['type'] = 'signal'
             title = html.xpath('string(//dd[@class="lemmaWgt-lemmaTitle-title"]/h1)')
             description = re.sub('\\n\[\d+(-\d+)?\]\\xa0\\n', '',
                                  html.xpath('string(//div[@class="lemma-summary"])')).strip()
@@ -98,4 +105,10 @@ def _parse(response):
                         clean_word(pro.xpath('string(.//following-sibling::*[1])'))
                 result['info']['attrs'] = attrs
 
+            # 获取开放标签
+            tags = []
+            if html.xpath('//div[@class="open-tag-title"]'):
+                for tag in html.xpath('//span[@class="taglist"]'):
+                    tags.append(tag.xpath('string(.)').strip())
+            result['info']['tags'] = tags
     return result

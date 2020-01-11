@@ -8,7 +8,7 @@ from lightspider.writer import json_writer, csv_writer
 
 
 class Spider:
-    def __init__(self, base_url, format, save_path, use_proxy=False):
+    def __init__(self, base_url, format, save_path, proxy=None):
         self.base_url = base_url
         if format == 'json':
             writer = json_writer
@@ -22,8 +22,8 @@ class Spider:
             logger.warning('指定目录不存在！将创建存储目录{}'.format(save_path))
             os.mkdir(save_path)
         self.save_path = save_path
-        self.use_proxy = use_proxy
         self._parser = None
+        self.proxy = proxy
 
     def run(self, tasks, parser):
         if type(tasks[0]) == int:
@@ -57,7 +57,7 @@ class Spider:
 
         process_lst = []
         for i in range(multiprocessing.cpu_count()):
-            p = Process(target=parser, args=(self.base_url, task_q, result_q, handled_tasks_list, self.use_proxy))
+            p = Process(target=parser, args=(self.base_url, task_q, result_q, handled_tasks_list, self.proxy))
             process_lst.append(p)
 
         for p in process_lst:
