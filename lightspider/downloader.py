@@ -19,9 +19,12 @@ def get_response(url, user_proxy=None):
             proxy = user_proxy
     else:
         proxy = None
-    r = requests.get(url, headers=headers, proxies=proxy, timeout=3)
-    if r.status_code == requests.codes.ok:
-        if r.encoding != 'utf-8':
-            r.encoding = 'utf-8'
-        return r
+    try:
+        r = requests.get(url, headers=headers, proxies=proxy, timeout=3)
+        if r.status_code == requests.codes.ok:
+            if r.encoding != 'utf-8':
+                r.encoding = 'utf-8'
+            return r
+    except Exception as e:
+        return None
     return None

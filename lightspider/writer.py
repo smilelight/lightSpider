@@ -34,5 +34,3 @@ def csv_writer(result_q, task_nums, save_path):
         with open(save_path + '/handle.txt', 'a+', encoding='utf-8') as f:
             f.write(task + '\n')
         bar.update()
-
-
