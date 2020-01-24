@@ -312,6 +312,7 @@ if __name__ == '__main__':
 5. [[快学Python3]日期和时间处理 - 简书](https://www.jianshu.com/p/eb5c416673bd)
 6. [multiprocessing --- 基于进程的并行 — Python 3.8.1 文档](https://docs.python.org/zh-cn/3/library/multiprocessing.html)
 7. [python去掉字符串中的空白字符_drbing的博客-CSDN博客](https://blog.csdn.net/drbing/article/details/50891172)
+8. [git - ssh: connect to host github.com port 22: Connection timed out - Stack Overflow](https://stackoverflow.com/questions/15589682/ssh-connect-to-host-github-com-port-22-connection-timed-out)
 
 ## 打赏
 
