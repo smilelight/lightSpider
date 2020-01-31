@@ -9,7 +9,7 @@ with open('./requirements.txt', 'r', encoding='utf8') as f:
 
 setup(
     name='lightSpider',
-    version='0.2.2',
+    version='0.2.3',
     description="lightsmile's personal spider for crawling data",
     author='lightsmile',
     author_email='iamlightsmile@gmail.com',
@@ -23,7 +23,6 @@ setup(
         'Development Status :: 4 - Beta',
         'Operating System :: OS Independent',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',

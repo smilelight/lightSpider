@@ -313,6 +313,7 @@ if __name__ == '__main__':
 6. [multiprocessing --- 基于进程的并行 — Python 3.8.1 文档](https://docs.python.org/zh-cn/3/library/multiprocessing.html)
 7. [python去掉字符串中的空白字符_drbing的博客-CSDN博客](https://blog.csdn.net/drbing/article/details/50891172)
 8. [git - ssh: connect to host github.com port 22: Connection timed out - Stack Overflow](https://stackoverflow.com/questions/15589682/ssh-connect-to-host-github-com-port-22-connection-timed-out)
+9. [mongodb 导入json文件遇到的坑 - xibuhaohao - 博客园](https://www.cnblogs.com/xibuhaohao/p/11251306.html)
 
 ## 打赏
 

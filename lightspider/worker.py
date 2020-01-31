@@ -5,7 +5,7 @@ from .downloader import get_response
 
 def light(parser):
     @wraps(parser)
-    def worker(base_url, task_q, result_q, handled_tasks_list, proxy=None):
+    def worker(base_url, task_q, result_q, handled_tasks_list, proxy=None, interval=0):
         while True:
             task = task_q.get(True)
             if task == '-end-':
@@ -30,5 +30,5 @@ def light(parser):
                         task_q.put(task)
             else:
                 task_q.put(task)
-            time.sleep(1)  # 默认休眠1s，一方面减少ip被封风险，一方面不给服务器造成太大负担
+            time.sleep(interval)  # 默认休眠1s，一方面减少ip被封风险，一方面不给服务器造成太大负担
     return worker
