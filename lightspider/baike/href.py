@@ -37,7 +37,7 @@ def _parse(response):
         hrefs = [x for x in html.xpath('//a') if
                  x.xpath('string(.)').strip() and x.xpath('./@href') and x.xpath('./@href')[0].startswith('/item')]
         links = []
-        for href in hrefs[8:-1]:  # [8:-1]是因为去掉了无关item项
+        for href in hrefs[5:-1]:  # [5:-1]是因为去掉了无关item项
             # title = href.xpath('string(.)').strip()
             link = clean_word(href.xpath('string(./@href)'))
             links.append(link)

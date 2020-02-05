@@ -10,9 +10,10 @@ lightsmile个人的用于爬取网络公开语料数据的mini通用爬虫框架
    - 实现断点重爬，即使程序因内外在原因挂掉了，可以继续执行任务脚本继续爬取
    - 启用进度条，可实时显示当前爬取总进度与爬取速度，用户体验较好
    - 提供了爬取百度百科的实现，提供批量爬取和单项查询两种模式，简单易用
+   - 邮件提醒功能，程序可以在任务执行完成后发送邮件到指定邮箱
 3. 本项目并没有：
    - 验证码登录功能
-   - 各种自定义功能
+   - 其他复杂功能
    - 等等。
 
 ## 安装
@@ -71,7 +72,7 @@ for i in range(1, 30):
 base_url = 'https://www.cilin.org/jyc/b_{}.html'
 save_format = 'json'
 
-spider = Spider(base_url=search.base_url, format=search.save_format, save_path=r'D:\Data\NLP\corpus\baike_search')
+spider = Spider(base_url=base_url, save_format=save_format, save_path=r'D:\Data\NLP\corpus\baike_search')
 ```
 
 ### step5: 执行`Spider`对象的`run`方法
@@ -116,7 +117,7 @@ for i in range(1, 30):
 base_url = 'https://www.cilin.org/jyc/b_{}.html'
 save_format = 'json'
 
-spider = Spider(base_url=base_url, format=save_format, save_path=r'D:\Data\NLP\corpus\baike_search')
+spider = Spider(base_url=base_url, save_format=save_format, save_path=r'D:\Data\NLP\corpus\baike_search')
 
 
 if __name__ == '__main__':
@@ -152,7 +153,7 @@ spider = Spider(base_url=base_url, format=save_format, save_path=r'D:\Data\NLP\c
 若想启用代理池服务，则需要参见[Python3WebSpider/ProxyPool: Proxy Pool](https://github.com/Python3WebSpider/ProxyPool)以进行环境配置并启动服务，代码则修改为：
 
 ```python
-spider = Spider(base_url=base_url, format=save_format, save_path=r'D:\Data\NLP\corpus\test', proxy=DEFAULT_PROXY)
+spider = Spider(base_url=base_url, save_format=save_format, save_path=r'D:\Data\NLP\corpus\test', proxy=DEFAULT_PROXY)
 ```
 
 ### 2.百度百科
@@ -169,7 +170,7 @@ from lightspider import Spider
 tasks = ['曹操', '曹操字孟德', '司马懿',
          '自然语言处理', '知识图谱', '人工智能', '深度学习', '爬虫']
 
-spider = Spider(base_url=info.base_url, format=info.save_format, save_path=r'D:\Data\NLP\corpus\baike_info')
+spider = Spider(base_url=info.base_url, save_format=info.save_format, save_path=r'D:\Data\NLP\corpus\baike_info')
 
 if __name__ == '__main__':
     spider.run(tasks, info.parser)
@@ -213,7 +214,7 @@ from lightspider import Spider
 
 tasks = ['曹操', '曹操字孟德']
 
-spider = Spider(base_url=href.base_url, format=href.save_format, save_path=r'D:\Data\NLP\corpus\baike_href')
+spider = Spider(base_url=href.base_url, save_format=href.save_format, save_path=r'D:\Data\NLP\corpus\baike_href')
 
 if __name__ == '__main__':
     spider.run(tasks, href.parser)
@@ -252,7 +253,7 @@ from lightspider import Spider
 
 tasks = ['曹操', '曹操字孟德']
 
-spider = Spider(base_url=search.base_url, format=search.save_format, save_path=r'D:\Data\NLP\corpus\baike_search')
+spider = Spider(base_url=search.base_url, save_format=search.save_format, save_path=r'D:\Data\NLP\corpus\baike_search')
 
 if __name__ == '__main__':
     spider.run(tasks, search.parser)
@@ -303,6 +304,48 @@ if __name__ == '__main__':
 {'info': {'word': '曹操', 'basic': {'title': '曹操', 'sub_title': '（东汉末年历史人物）', 'description': '曹操（155年－220年3月15日），本名吉利，字孟德，小名阿瞒，谥号武皇帝（魏武帝），沛国谯县（今安徽亳州）人。东汉末年杰出的政治家、军事家、文学家、书法家，曹魏政权的奠基人。东汉末年，天下大乱，曹操以汉朝天子刘协的名义征讨四方，对内消灭二袁、吕布、刘表、马超、韩遂等割据势力，对外降服南匈奴、乌桓、鲜卑等，统一了中国北方，并实行一系列政策恢复经济生产和社会秩序，扩大屯田、兴修水利、奖励农桑、重视手工业、安置流亡人口、实行“租调制”，从而使中原社会渐趋稳定、经济出现转机。建安十八年（213年），曹操获封魏公，建立魏公国，定都河北邺城，而后进爵魏王。去世后，其子曹丕称帝，追尊曹操为武皇帝，庙号太祖。曹操喜欢用诗歌、散文来抒发自己政治抱负，反映民生疾苦，是魏晋文学的代表人物，鲁迅赞之为“改造文章的祖师”。同时曹操擅长书法，唐朝张怀瓘《书断》将曹操的章草评为“妙品”。'}, 'means': [('东汉末年历史人物', '曹操/6772'), ('[日] 堀敏一所著历史书籍', '《曹操》/23245607'), ('林俊杰音乐专辑', '曹操/10749527'), ('手游《百将行》游戏角色', '曹操/20178005'), ('手机游戏《Q卡三国》中的人物', '曹操/15917009'), ('1999年电视剧', '曹操/1117711'), ('2018年张黎执导电视剧', '曹操/20481440'), ('《梦三国》游戏人物角色', '曹操/13868137'), ('陈舜臣所著的历史小说', '曹操/18785489'), ('美国演员', '曹操/1205242'), ('游戏《炎黄战纪》卡牌', '曹操/20459910'), ('2013年胡玫指导历史剧', '曹操/13832016'), ('伊沙所著的历史小说', '曹操/19409096'), ('桌游《英雄杀》角色', '曹操/2364108'), ('林俊杰演唱歌曲', '曹操/10748725'), ('《阵面对决》中的卡牌', '曹操/20121613'), ('TCG桌游《乱战》卡片名', '曹操/16326570'), ('《虽远必诛》手游武将', '曹操/19527092'), ('桌游《三国杀》武将牌', '曹操/10748739'), ('《真三国无双》人物', '曹操/16522702'), ('明末义军首领罗汝才的绰号', '曹操/18762008'), ('漫画《苍天航路》角色', '曹操/15279108'), ('手游《王者荣耀》中的英雄角色', '曹操/19479693'), ('MOBA手游《英魂之刃口袋版》的一名法师英雄', '曹操/20451845'), ('我的美女老师中人物', '曹操/18803583'), ('动漫《恶魔高校D×D》角色', '曹操/15928756'), ('游戏《英雄三国》角色', '曹操/16191846'), ('手游《率土之滨》角色', '曹操/22312067'), ('腾讯代理网游《英魂之刃》远程智力型英雄', '曹操/24131566'), ('漫画《火凤燎原》及其衍生作品角色', '曹操/24177677'), ('《小米超神》的法师类英雄', '曹操/24186154')], 'attrs': {'本名': '曹操', '别称': '一名吉利', '字号': '字孟德小字阿瞒', '所处时代': '东汉末年', '民族族群': '汉族', '出生地': '沛国谯县（今安徽亳州）', '出生时间': '155年', '去世时间': '220年3月15日', '主要作品': '《观沧海》《龟虽寿》《让县自明本志令》《蒿里行》《孟德新书》', '主要成就': '开创建安文学，提倡薄葬', '官职': '丞相', '爵位': '魏王（去世前）', '谥号': '武皇帝', '庙号': '太祖', '陵墓': '高陵'}, 'tags': ['诗人']}, 'type': 'multiple'}
 {'search_word': '曹操', 'result': [{'title': '曹操(东汉末年历史人物)_百度百科', 'url': '曹操/6772', 'description': '曹操(155年-220年3月15日),本名吉利,字孟德,小名阿瞒,谥号武皇帝(魏武帝),沛国谯县(今安徽亳州)人。东汉末年杰出的政治家、军事家、文学家、书法家,曹魏...', 'result_date': '2020-1-3'}, {'title': '曹操(林俊杰音乐专辑)_百度百科', 'url': '曹操/10749527', 'description': '《曹操》是林俊杰2006年发行的专辑。作词者包括林秋离、林俊杰等人,作曲由林俊杰一人完成,全专辑共11首歌曲(内地版为10首歌曲,马来西亚版为12首歌曲)。2006年凭借该...', 'result_date': '2019-11-25'}, {'title': '曹操(美国演员)_百度百科', 'url': '曹操/1205242', 'description': '曹操,出生于美国,毕业于纽约大学电影学院,演员。代表作品有《爱的保镖》、《跨国阴谋》等。...', 'result_date': '2019-12-14'}, {'title': '曹操(1999年电视剧)_百度百科', 'url': '曹操/1117711', 'description': '东汉末年,腐朽没落的东汉王朝分崩离折,外戚宦官当道,军阀混乱,天下大乱,人民流离失所。社会生产力遭到极大破坏,作为非常之人,超世之杰的曹操,怀抱救国之志,除...', 'result_date': '2019-11-25'}, {'title': '曹操(手游《王者荣耀》中的英雄角色)_百度百科', 'url': '曹操/19479693', 'description': '曹操是手游《王者荣耀》中的一位无蓝战士型英雄角色。曹操是手游中操作难度极高的英雄。团战中可以前排抗伤、保护射手或切敌方输出,是游戏中强大的英雄。曹操是一...', 'result_date': '2019-12-14'}, {'title': '曹操(2013年胡玫指导历史剧)_百度百科', 'url': '曹操/13832016', 'description': '《曹操》是由电广传媒文化发展有限公司出品,胡玫执导的历史古装正剧,由赵立新、孙洪涛、龚洁、张玉洁、韩雪、古巨基等主演。该剧主要讲述了东汉末年曹操一统北方、创建...', 'result_date': '2019-12-6'}, {'title': '曹操(《真三国无双》人物)_百度百科', 'url': '曹操/16522702', 'description': '曹操,日本光荣出品游戏《真三国无双》系列曹魏势力重要角色。苍紫的霸道。之后的魏王,人称“乱世的奸雄”。长于判断与决断,参加黄巾讨伐军后展现头角。在陷入战乱的...', 'result_date': '2019-11-29'}, {'title': '《曹操》([日] 堀敏一所著历史书籍)_百度百科', 'url': '《曹操》/23245607', 'description': '《曹操》 是一部由 [日] 堀敏一所著历史书籍,北京联合出版公司出版发行。...... 《曹操》 是一部由 [日] 堀敏一所著历史书籍,北京联合出版公司出版发行。...', 'result_date': '2019-12-7'}, {'title': '曹操墓_百度百科', 'url': '曹操墓/3652496', 'description': '曹操墓即安阳高陵,位于河南省安阳市安丰乡西高穴村,在曹操王都邺北城西12公里处。据《三国志》等史料记载,220年曹操卒于洛阳,灵柩葬在邺城的西门豹祠以西丘陵...', 'result_date': '2019-12-27'}, {'title': '曹操(2018年张黎执导电视剧)_百度百科', 'url': '曹操/20481440', 'description': '《曹操》是由张黎执导,姜文领衔主演古装历史剧。该剧以曹操的一生为主线,讲述了曹操戎马倥偬,功过是非的传奇故事。暂定在2018年9月开机。...', 'result_date': '2019-12-26'}]}
 ```
+
+### 3.邮件提醒
+
+若欲启用邮件提醒功能，可在`spider.run`方法中传入`notification`参数，其格式为字典`dict`，需要有`to`和`task_name`参数，分别指定发送的邮箱和任务名称，其中`to`可以指定为字符串列表从而将邮件发送到多个邮箱。
+
+代码示例：
+
+```python
+from lightspider.baike import info
+from lightspider import Spider
+
+
+tasks = ['曹操', '曹操字孟德', '司马懿',
+         '自然语言处理', '知识图谱', '人工智能', '深度学习', '爬虫']
+
+notification = {
+    "to": "iamlightsmile@qq.com",
+    "task_name": "baike_info"
+}
+
+spider = Spider(base_url=info.base_url, save_format=info.save_format, save_path=r'D:\Data\NLP\corpus\baike_info')
+
+if __name__ == '__main__':
+    spider.run(tasks, info.parser, notification=notification)
+```
+
+执行结果如下：
+
+```text
+[2020-02-05 09:45:58] [INFO] [MainThread] [spider.py:43] 已处理0条数据，还需处理8条数据
+[2020-02-05 09:45:59] [INFO] [MainThread] [spider.py:57] 开始爬取，当前时间为：2020-02-05 09:45:59
+[2020-02-05 09:46:00] [INFO] [MainThread] [writer.py:12] 写入地址为：D:\Data\NLP\corpus\baike_info\result.json， 临时文件地址为：D:\Data\NLP\corpus\baike_info\handled.txt
+100%|██████████| 8/8 [00:00<00:00, 17.78it/s]
+[2020-02-05 09:46:00] [INFO] [MainThread] [spider.py:76] 执行结束, 当前时间为：2020-02-05 09:46:00
+[2020-02-05 09:46:00] [INFO] [MainThread] [spider.py:80] 本次共计耗时1.42秒，共爬取8条数据，平均速度为：5.62(task/s)
+[2020-02-05 09:46:03] [INFO] [MainThread] [spider.py:96] 邮件发送成功！
+```
+
+同时邮件内容如下：
+
+![UTOOLS1580867183436.png](https://lightsmile-img.oss-cn-beijing.aliyuncs.com/UTOOLS1580867183436.png)
+
 
 ## 参考
 1. [Python3WebSpider/ProxyPool: Proxy Pool](https://github.com/Python3WebSpider/ProxyPool)

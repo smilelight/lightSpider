@@ -37,7 +37,7 @@ for i in range(1, 30):
 base_url = 'https://www.cilin.org/jyc/b_{}.html'
 save_format = 'json'
 
-spider = Spider(base_url=base_url, format=save_format, save_path=r'D:\Data\NLP\corpus\test', proxy=DEFAULT_PROXY)
+spider = Spider(base_url=base_url, save_format=save_format, save_path=r'D:\Data\NLP\corpus\test', proxy=DEFAULT_PROXY)
 
 
 if __name__ == '__main__':
