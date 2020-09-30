@@ -69,7 +69,6 @@ def extract(html):
             })
     return result
 
-
 @light
 def parser(response):
     html = etree.HTML(response.text)
@@ -102,7 +101,7 @@ if __name__ == '__main__':
         tasks.append(archive.xpath('string(./@href)'))
     save_format = 'json'
 
-    spider = Spider(base_url=base_url, save_format=save_format, save_path=r'D:\Data\NLP\corpus\my_blogs')
+    spider = Spider(base_url=base_url, save_format=save_format, save_path=r'D:\Data\NLP\corpus\my_blogs_test')
     spider.run(tasks, parser)
     # test_url = base_url.format(tasks[39])
     # test_res = get_response(test_url)

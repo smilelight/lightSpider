@@ -1,6 +1,9 @@
 from distutils.core import setup
 import setuptools
 
+with open('./version.txt', encoding='utf8') as f:
+    version = f.read()
+
 with open('./README.md', 'r', encoding='utf8') as f:
     long_description = f.read()
 
@@ -9,7 +12,7 @@ with open('./requirements.txt', 'r', encoding='utf8') as f:
 
 setup(
     name='lightSpider',
-    version='0.2.4',
+    version=version,
     description="lightsmile's personal spider for crawling data",
     author='lightsmile',
     author_email='iamlightsmile@gmail.com',

@@ -3,7 +3,7 @@ from lightspider.baike import info
 from lightspider.baike import search
 
 if __name__ == '__main__':
-    word = '念佛法门'
+    word = '曹髦'
     href_result = href.query(word)
     info_result = info.query(word)
     search_result = search.query(word)

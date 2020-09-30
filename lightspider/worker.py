@@ -20,6 +20,7 @@ def light(parser):
                 else:
                     info, tasks = None, None
             except Exception as e:
+                print(e)
                 task_q.put(task)
                 continue
             if info:

@@ -5,6 +5,7 @@ from multiprocessing import Process, Queue, Manager
 
 from lightutils import logger, send_email_notification, time_convert
 from .writer import json_writer, csv_writer
+from .worker import light
 
 
 class Spider:
